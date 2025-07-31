@@ -1,0 +1,80 @@
+<dl
+  class="w-full h-full grid grid-cols-1 sm:grid-cols-6 divide-y divide-x-0 sm:divide-x divide-black/10 dark:divide-white/10">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 px-6 py-6 sm:col-span-6">
+    <dt class="text-sm font-medium text-neutral-500 dark:text-neutral-400">Despesas</dt>
+    <dd class="w-full flex-none">
+      @if (carregando()) {
+        <app-skeleton shape="rectangle" size="xl" />
+      } @else {
+        <span class="text-red-500 text-4xl font-bold tracking-tight">
+          {{ resumo()?.valorTotal | currency: 'BRL' }}
+        </span>
+      }
+    </dd>
+  </div>
+
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 px-6 py-6 sm:col-span-3">
+    <dt class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Valores pagos</dt>
+    <dd class="w-full flex-none">
+      @if (carregando()) {
+        <app-skeleton shape="rectangle" size="xl" />
+      } @else {
+        <span class="text-2xl font-medium tracking-tight">
+          {{ resumo()?.valorTotalMovimentado | currency: 'BRL' }}
+        </span>
+      }
+    </dd>
+  </div>
+
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 px-6 py-6 sm:col-span-3">
+    <dt class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Valores pendentes</dt>
+    <dd class="w-full flex-none">
+      @if (carregando()) {
+        <app-skeleton shape="rectangle" size="xl" />
+      } @else {
+        <span class="text-2xl font-medium tracking-tight">
+          {{ resumo()?.valorTotalAberto | currency: 'BRL' }}
+        </span>
+      }
+    </dd>
+  </div>
+
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 px-6 py-6 sm:col-span-2">
+    <dt class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Juros</dt>
+    <dd class="w-full flex-none">
+      @if (carregando()) {
+        <app-skeleton shape="rectangle" size="xl" />
+      } @else {
+        <span class="text-xl font-medium tracking-tight">
+          {{ resumo()?.valorTotalJuros | currency: 'BRL' }}
+        </span>
+      }
+    </dd>
+  </div>
+
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 px-6 py-6 sm:col-span-2">
+    <dt class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Acréscimos</dt>
+    <dd class="w-full flex-none">
+      @if (carregando()) {
+        <app-skeleton shape="rectangle" size="xl" />
+      } @else {
+        <span class="text-xl font-medium tracking-tight">
+          {{ resumo()?.valorTotalAcrescimos | currency: 'BRL' }}
+        </span>
+      }
+    </dd>
+  </div>
+
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 px-6 py-6 sm:col-span-2">
+    <dt class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Descontos</dt>
+    <dd class="w-full flex-none">
+      @if (carregando()) {
+        <app-skeleton shape="rectangle" size="xl" />
+      } @else {
+        <span class="text-xl font-medium tracking-tight">
+          {{ resumo()?.valorTotalDescontos | currency: 'BRL' }}
+        </span>
+      }
+    </dd>
+  </div>
+</dl>

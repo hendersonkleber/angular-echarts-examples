@@ -34,5 +34,29 @@
         <div role="status" class="h-full w-full bg-card-background rounded animate-pulse"></div>
       }
     </div>
+
+    <div class="relative min-h-96 lg:col-span-3">
+      @defer (on viewport) {
+        <app-financeiro-resumo-receitas />
+      } @placeholder {
+        <div role="status" class="h-full w-full bg-card-background rounded animate-pulse"></div>
+      }
+    </div>
+
+    <div class="relative min-h-96 lg:col-span-3">
+      @defer (on viewport) {
+        <app-financeiro-resumo-despesas />
+      } @placeholder {
+        <div role="status" class="h-full w-full bg-card-background rounded animate-pulse"></div>
+      }
+    </div>
+
+    <div class="relative min-h-96 lg:col-span-6">
+      @defer (on viewport) {
+        <app-financeiro-registros-por-dia />
+      } @placeholder {
+        <div role="status" class="h-full w-full bg-card-background rounded animate-pulse"></div>
+      }
+    </div>
   </div>
 </section>
