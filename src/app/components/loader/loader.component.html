@@ -1,0 +1,13 @@
+@switch (type()) {
+  @case ('truck') {
+    <app-loader-truck />
+  }
+
+  @case ('chart') {
+    <app-loader-chart />
+  }
+
+  @default {
+    <app-loader-compass />
+  }
+}

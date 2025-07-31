@@ -1,0 +1,113 @@
+.compass {
+  display: block;
+  width: 9.375em;
+  height: 9.375em;
+}
+
+.compass-arrows,
+.compass-ring-rotate,
+.compass-ring-stroke,
+.compass-tick {
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.compass-arrows {
+  animation-name: compass-arrows-42;
+  transform: rotate(45deg);
+  transform-origin: 16px 52px;
+}
+
+.compass-ring-rotate,
+.compass-ring-stroke {
+  transform-origin: 80px 80px;
+}
+
+.compass-ring-rotate {
+  animation-name: compass-ring-rotate-42;
+}
+
+.compass-ring-stroke {
+  animation-name: compass-ring-stroke-42;
+  transform: rotate(-45deg);
+}
+
+.compass-tick {
+  animation-name: compass-tick-42;
+}
+
+.compass-tick:nth-child(2) {
+  animation-delay: -1.75s;
+}
+
+.compass-tick:nth-child(3) {
+  animation-delay: -1.5s;
+}
+
+.compass-tick:nth-child(4) {
+  animation-delay: -1.25s;
+}
+
+.compass-tick:nth-child(5) {
+  animation-delay: -1s;
+}
+
+.compass-tick:nth-child(6) {
+  animation-delay: -0.75s;
+}
+
+.compass-tick:nth-child(7) {
+  animation-delay: -0.5s;
+}
+
+.compass-tick:nth-child(8) {
+  animation-delay: -0.25s;
+}
+
+@keyframes compass-arrows-42 {
+  from {
+    transform: rotate(45deg);
+  }
+
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes compass-ring-rotate-42 {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes compass-ring-stroke-42 {
+  from,
+  to {
+    stroke-dashoffset: 452;
+    transform: rotate(-45deg);
+  }
+
+  50% {
+    stroke-dashoffset: 169.5;
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes compass-tick-42 {
+  from,
+  3%,
+  47%,
+  to {
+    stroke-dashoffset: -12;
+  }
+
+  14%,
+  36% {
+    stroke-dashoffset: 0;
+  }
+}

@@ -7,7 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   host: {
-    class: 'block min-h-svh flex flex-col bg-neutral-100 text-black/90 dark:bg-neutral-700 dark:text-white',
+    class: 'block min-h-svh flex flex-col bg-background text-foreground',
     role: 'application',
   },
   template: `

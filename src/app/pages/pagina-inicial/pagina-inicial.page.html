@@ -1,0 +1,22 @@
+<section class="container mx-auto flex flex-col items-center gap-2 py-8 text-center md:py-16 lg:py-20 xl:gap-4">
+  <h1
+    class="leading-tight text-4xl font-bold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter max-w-4xl">
+    Análise profissional de dados
+  </h1>
+  <p class="text-neutral-500 dark:text-neutral-300 max-w-3xl text-base text-balance sm:text-lg">
+    Uma coleção de componentes gráficos prontos para uso, criados com o echarts. De gráficos básicos a exibições de
+    dados avançadas, copie e cole em seus aplicativos.
+  </p>
+</section>
+
+<section class="flex-1 relative container mx-auto pb-8 px-8">
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-6">
+    <div class="relative min-h-96 lg:col-span-6">
+      @defer (on viewport) {
+        <app-pagina-inicial-fluxo-caixa-diario-semana />
+      } @placeholder {
+        <div role="status" class="h-full w-full bg-neutral-200 rounded dark:bg-neutral-600 animate-pulse"></div>
+      }
+    </div>
+  </div>
+</section>
