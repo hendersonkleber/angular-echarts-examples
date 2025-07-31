@@ -6,7 +6,7 @@ import {
   DestroyRef,
   ElementRef,
   afterNextRender,
-  afterRenderEffect,
+  effect,
   inject,
   input,
   viewChild,
@@ -35,8 +35,14 @@ export class ChartComponent {
   });
 
   constructor() {
+    // Executa uma vez após a primeira renderização
+    afterNextRender(() => {
+      this.createChart();
+      this.firstRender = false;
+    });
+
     // Atualiza as opções do gráfico
-    afterRenderEffect(() => {
+    effect(() => {
       const options = this.options();
 
       if (this.firstRender) return;
@@ -45,18 +51,12 @@ export class ChartComponent {
     });
 
     // Atualiza o tema do gráfico quando mudar o tema da aplicação
-    afterRenderEffect(() => {
+    effect(() => {
       const theme = this.themeManager.theme();
 
       if (this.firstRender) return;
 
       if (this.instance) this.instance.setTheme(theme);
-    });
-
-    // Executa uma vez após a primeira renderização
-    afterNextRender(() => {
-      this.createChart();
-      this.firstRender = false;
     });
 
     // Destroi o gráfico e remove observaveis
