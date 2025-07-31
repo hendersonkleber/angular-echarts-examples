@@ -1,0 +1,5 @@
+@if (carregando()) {
+  <app-loader type="chart" />
+} @else if (options()) {
+  <app-chart [options]="options()!" [rendererOptions]="rendererOptions()" />
+}

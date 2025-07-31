@@ -6,16 +6,16 @@ import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/cor
 import { DateTime } from 'luxon';
 
 @Component({
-  selector: 'app-pagina-inicial-fluxo-caixa-diario-semana',
+  selector: 'app-fluxo-caixa-diario-semana',
   imports: [ChartComponent, LoaderComponent],
   host: {
     class:
       'block relative h-full w-full flex flex-col bg-card-background text-card-foreground overflow-hidden rounded-lg shadow ring-1 ring-black/40 dark:ring-white/40 p-4',
   },
-  templateUrl: './pagina-inicial-fluxo-caixa-diario-semana.component.html',
+  templateUrl: './fluxo-caixa-diario-semana.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginaInicialFluxoCaixaDiarioSemanaComponent implements OnInit {
+export class FluxoCaixaDiarioSemanaComponent implements OnInit {
   protected readonly carregando = signal<boolean>(false);
   protected readonly options = signal<ChartOptions | null>(null);
   protected readonly rendererOptions = signal<ChartInitOptions | null>({
@@ -119,7 +119,6 @@ export class PaginaInicialFluxoCaixaDiarioSemanaComponent implements OnInit {
         left: '1%',
         right: '1%',
         bottom: '2%',
-        containLabel: true,
       },
 
       legend: {

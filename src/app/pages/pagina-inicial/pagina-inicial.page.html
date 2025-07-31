@@ -3,9 +3,9 @@
     class="leading-tight text-4xl font-bold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter max-w-4xl">
     Análise profissional de dados
   </h1>
-  <p class="text-neutral-500 dark:text-neutral-300 max-w-3xl text-base text-balance sm:text-lg">
-    Uma coleção de componentes gráficos prontos para uso, criados com o echarts. De gráficos básicos a exibições de
-    dados avançadas, copie e cole em seus aplicativos.
+  <p class="text-neutral-500 dark:text-neutral-300 max-w-2xl text-base text-balance">
+    Uma coleção de componentes gráficos prontos para uso, criados com o echarts. Gráficos básicos a exibições de dados
+    avançadas, copie e cole em seus aplicativos.
   </p>
 </section>
 
@@ -13,9 +13,25 @@
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-6">
     <div class="relative min-h-96 lg:col-span-6">
       @defer (on viewport) {
-        <app-pagina-inicial-fluxo-caixa-diario-semana />
+        <app-fluxo-caixa-diario-semana />
       } @placeholder {
-        <div role="status" class="h-full w-full bg-neutral-200 rounded dark:bg-neutral-600 animate-pulse"></div>
+        <div role="status" class="h-full w-full bg-card-background rounded animate-pulse"></div>
+      }
+    </div>
+
+    <div class="relative min-h-96 lg:col-span-3">
+      @defer (on viewport) {
+        <app-documentos-por-uf />
+      } @placeholder {
+        <div role="status" class="h-full w-full bg-card-background rounded animate-pulse"></div>
+      }
+    </div>
+
+    <div class="relative min-h-96 lg:col-span-3">
+      @defer (on viewport) {
+        <app-vencimento-certificado-digital />
+      } @placeholder {
+        <div role="status" class="h-full w-full bg-card-background rounded animate-pulse"></div>
       }
     </div>
   </div>

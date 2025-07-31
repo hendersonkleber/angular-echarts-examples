@@ -9,7 +9,6 @@ import {
   afterRenderEffect,
   inject,
   input,
-  signal,
   viewChild,
 } from '@angular/core';
 
@@ -24,8 +23,10 @@ export class ChartComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly themeManager = inject(ThemeManager);
 
-  private readonly resizeObserver = signal<ResizeObserver | null>(null);
-  private readonly instance = signal<Chart | null>(null);
+  private firstRender = true;
+  private instance: Chart | null = null;
+  private resizeObserver: ResizeObserver | null = null;
+
   private readonly element = viewChild.required<ElementRef<HTMLDivElement>>('chart');
 
   public readonly options = input.required<ChartOptions>();
@@ -34,12 +35,28 @@ export class ChartComponent {
   });
 
   constructor() {
-    // Executa uma vez após a primeira renderização
-    afterNextRender(() => this.createChart());
-
     // Atualiza as opções do gráfico
     afterRenderEffect(() => {
-      if (this.instance()) this.instance()?.setOption(this.options(), true);
+      const options = this.options();
+
+      if (this.firstRender) return;
+
+      if (this.instance) this.instance.setOption(options, true);
+    });
+
+    // Atualiza o tema do gráfico quando mudar o tema da aplicação
+    afterRenderEffect(() => {
+      const theme = this.themeManager.theme();
+
+      if (this.firstRender) return;
+
+      if (this.instance) this.instance.setTheme(theme);
+    });
+
+    // Executa uma vez após a primeira renderização
+    afterNextRender(() => {
+      this.createChart();
+      this.firstRender = false;
     });
 
     // Destroi o gráfico e remove observaveis
@@ -64,7 +81,7 @@ export class ChartComponent {
     chart.setOption(options);
 
     // Persiste a instancia do gráfico localmente
-    this.instance.set(chart);
+    this.instance = chart;
 
     // Cria um observavel de redimensionamente, caso tiver que atualizar tamanhos do gráfico
     this.createResizeObserver();
@@ -75,20 +92,20 @@ export class ChartComponent {
     const resizeObserver = new ResizeObserver(() => {
       const { height, width } = this.element().nativeElement.getBoundingClientRect();
 
-      this.instance()?.resize({ height, width });
+      this.instance?.resize({ height, width });
     });
 
     resizeObserver.observe(this.element().nativeElement);
-    this.resizeObserver.set(resizeObserver);
+    this.resizeObserver = resizeObserver;
   }
 
   // Executado para parar de observar redimensionamento e excluir a instancia atual do gráfico
   private destroy() {
-    this.resizeObserver()?.unobserve(this.element().nativeElement);
+    this.resizeObserver?.unobserve(this.element().nativeElement);
 
-    this.instance()?.clear();
-    this.instance()?.dispose();
+    this.instance?.clear();
+    this.instance?.dispose();
 
-    this.instance.set(null);
+    this.instance = null;
   }
 }
