@@ -16,8 +16,8 @@ const DEFAULT_CHART_RENDERER_OPTIONS: ChartInitOptions = { renderer: 'canvas', h
 
 @Component({
   selector: 'app-chart',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<div #chart></div>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent {
   private readonly destroyRef = inject(DestroyRef);
@@ -27,15 +27,13 @@ export class ChartComponent {
   private readonly element = viewChild.required<ElementRef<HTMLDivElement>>('chart');
 
   public readonly options = input.required<ChartOptions>();
-  public readonly rendererOptions = input<ChartInitOptions, ChartInitOptions | null>(DEFAULT_CHART_RENDERER_OPTIONS, {
-    transform: input => Object.assign(DEFAULT_CHART_RENDERER_OPTIONS, input),
+  public readonly rendererOptions = input(DEFAULT_CHART_RENDERER_OPTIONS, {
+    transform: (input: ChartInitOptions | null) => Object.assign(DEFAULT_CHART_RENDERER_OPTIONS, input),
   });
 
   constructor() {
     // Executa uma vez após a primeira renderização
-    afterNextRender(() => {
-      this.createChart();
-    });
+    afterNextRender(() => this.createChart());
 
     // Atualiza as opções do gráfico
     afterRenderEffect(() => {
@@ -66,11 +64,11 @@ export class ChartComponent {
     // Persiste a instancia do gráfico localmente
     this.instance.set(chart);
 
-    // Cria um observavel de redimensionamente, caso tiver atualizar tamanhos do gráfico
+    // Cria um observavel de redimensionamente, caso tiver que atualizar tamanhos do gráfico
     this.createResizeObserver();
   }
 
-  // Observar redimensioamente do gráfico, caso tiver renderizar novamente
+  // Observar redimensioamente do gráfico, caso tiver que renderizar novamente
   private createResizeObserver() {
     const resizeObserver = new ResizeObserver(() => {
       const { height, width } = this.element().nativeElement.getBoundingClientRect();
