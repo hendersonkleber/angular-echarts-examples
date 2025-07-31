@@ -7,13 +7,13 @@ import { HeaderComponent } from './components/header/header.component';
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   host: {
-    class: 'block h-screen min-h-screen max-h-screen bg-gray-100 flex flex-col',
+    class: 'block min-h-svh flex flex-col bg-neutral-100 text-black/90 dark:bg-neutral-700 dark:text-white',
     role: 'application',
   },
   template: `
     <app-header />
 
-    <main class="flex-grow relative overflow-auto">
+    <main class="flex-1 flex flex-col relative overflow-auto">
       <router-outlet />
     </main>
 

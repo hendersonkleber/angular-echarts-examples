@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-green-neon-50: oklch(0.985 0.04 142.5);
   --color-green-neon-100: oklch(0.965 0.07 142.5);
@@ -22,6 +24,27 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body *::selection {
+  color: var(--color-lime-500);
+}
+
+body::selection {
+  color: var(--color-lime-500);
+}
+
+body *::selection {
+  background-color: color-mix(in oklab, var(--color-lime-500) 20%, transparent);
+}
+
+body::selection {
+  background-color: color-mix(in oklab, var(--color-lime-500) 20%, transparent);
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
 }
 
 *,

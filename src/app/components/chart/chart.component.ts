@@ -1,3 +1,4 @@
+import { ThemeManager } from '@/services/theme-manager.service';
 import echarts, { Chart, ChartInitOptions, ChartOptions } from '@/utils/echarts';
 import {
   ChangeDetectionStrategy,
@@ -21,6 +22,7 @@ const DEFAULT_CHART_RENDERER_OPTIONS: ChartInitOptions = { renderer: 'canvas', h
 })
 export class ChartComponent {
   private readonly destroyRef = inject(DestroyRef);
+  private readonly themeManager = inject(ThemeManager);
 
   private readonly resizeObserver = signal<ResizeObserver | null>(null);
   private readonly instance = signal<Chart | null>(null);
@@ -56,7 +58,7 @@ export class ChartComponent {
     this.destroy();
 
     // Cria novo gráfico
-    const chart = echarts.init(element, 'light', rendererOptions);
+    const chart = echarts.init(element, this.themeManager.getTheme(), rendererOptions);
 
     // seta as opções no novo gráfico
     chart.setOption(options);
