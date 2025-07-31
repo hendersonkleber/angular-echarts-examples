@@ -1,0 +1,94 @@
+import echarts, { Chart, ChartInitOptions, ChartOptions } from '@/utils/echarts';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  afterNextRender,
+  afterRenderEffect,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
+
+const DEFAULT_CHART_RENDERER_OPTIONS: ChartInitOptions = { renderer: 'canvas', height: 400 };
+
+@Component({
+  selector: 'app-chart',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<div #chart></div>',
+})
+export class ChartComponent {
+  private readonly destroyRef = inject(DestroyRef);
+
+  private readonly resizeObserver = signal<ResizeObserver | null>(null);
+  private readonly instance = signal<Chart | null>(null);
+  private readonly element = viewChild.required<ElementRef<HTMLDivElement>>('chart');
+
+  public readonly options = input.required<ChartOptions>();
+  public readonly rendererOptions = input<ChartInitOptions, ChartInitOptions | null>(DEFAULT_CHART_RENDERER_OPTIONS, {
+    transform: input => Object.assign(DEFAULT_CHART_RENDERER_OPTIONS, input),
+  });
+
+  constructor() {
+    // Executa uma vez após a primeira renderização
+    afterNextRender(() => {
+      this.createChart();
+    });
+
+    // Atualiza as opções do gráfico
+    afterRenderEffect(() => {
+      if (this.instance()) this.instance()?.setOption(this.options(), true);
+    });
+
+    // Destroi o gráfico e remove observaveis
+    this.destroyRef.onDestroy(() => this.destroy());
+  }
+
+  private createChart() {
+    // Elemento HTML onde vai ficar o gráfico
+    const element = this.element().nativeElement;
+
+    // Opções de gráfico e renderização
+    const options = this.options();
+    const rendererOptions = this.rendererOptions();
+
+    // Caso tiver um gráfico destroi
+    this.destroy();
+
+    // Cria novo gráfico
+    const chart = echarts.init(element, 'light', rendererOptions);
+
+    // seta as opções no novo gráfico
+    chart.setOption(options);
+
+    // Persiste a instancia do gráfico localmente
+    this.instance.set(chart);
+
+    // Cria um observavel de redimensionamente, caso tiver atualizar tamanhos do gráfico
+    this.createResizeObserver();
+  }
+
+  // Observar redimensioamente do gráfico, caso tiver renderizar novamente
+  private createResizeObserver() {
+    const resizeObserver = new ResizeObserver(() => {
+      const { height, width } = this.element().nativeElement.getBoundingClientRect();
+
+      this.instance()?.resize({ height, width });
+    });
+
+    resizeObserver.observe(this.element().nativeElement);
+    this.resizeObserver.set(resizeObserver);
+  }
+
+  // Executado para parar de observar redimensionamento e excluir a instancia atual do gráfico
+  private destroy() {
+    this.resizeObserver()?.unobserve(this.element().nativeElement);
+
+    this.instance()?.clear();
+    this.instance()?.dispose();
+
+    this.instance.set(null);
+  }
+}
