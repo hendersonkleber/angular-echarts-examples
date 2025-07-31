@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal, type On
   imports: [SkeletonComponent, CurrencyPipe],
   host: {
     class:
-      'relative h-full w-full flex flex-col bg-white dark:bg-[#404040] overflow-hidden rounded-lg shadow ring-1 ring-red-500',
+      'relative h-full w-full flex flex-col bg-card-background text-card-foreground overflow-hidden rounded-lg shadow ring-1 ring-red-500',
   },
   templateUrl: './financeiro-resumo-despesas.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

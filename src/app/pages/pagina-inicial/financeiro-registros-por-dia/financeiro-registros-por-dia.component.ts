@@ -11,7 +11,7 @@ import { DateTime } from 'luxon';
   imports: [ChartComponent, LoaderComponent],
   host: {
     class:
-      'relative h-full w-full flex flex-col p-4 bg-white dark:bg-[#404040] overflow-hidden rounded-lg shadow ring-1 ring-black/40 dark:ring-white/40',
+      'relative h-full w-full flex flex-col p-4 bg-card-background text-card-foreground overflow-hidden rounded-lg shadow ring-1 ring-black/40 dark:ring-white/40',
   },
   templateUrl: './financeiro-registros-por-dia.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
